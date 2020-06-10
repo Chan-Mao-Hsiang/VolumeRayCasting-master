@@ -1,0 +1,119 @@
+<!doctype html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8"> 
+		<title>
+			Volume Generator
+		</title>
+		<link rel="stylesheet" type="text/css" media="all" href="./boilerplate.css">
+		<link rel="stylesheet" type="text/css" media="all" href="./style.css">
+	</head>
+	<body>
+		<div id="container">
+			<div id="main">
+				<h1>Volume Generator</h1>
+				<div id="settings">
+					<table>
+						<tr>
+							<td><label for="height">Height</label></td>
+							<td><input type="number" id="height" value="256" step="1" min="1"></td>
+						</tr>
+						<tr>
+							<td><label for="width">Width</label></td>
+							<td><input type="number" id="width" value="256" step="1" min="1"></td>
+						</tr>
+						<tr>
+							<td><label for="depth">Depth</label></td>
+							<td><input type="number" id="depth" value="256" step="1" min="1"></td>
+						</tr>
+					</table>
+					<div class="vr"></div>
+					<table>
+						<tr>
+							<td><label for="columns">Columns</label></td>
+							<td><input type="number" id="columns" value="16" step="1" min="1"></td>
+						</tr>
+						<tr rowspan="2" class="colspan">
+							<td colspan="2">
+								Resulting size:<br>
+								<span id="imageWidth">?</span>x<span id="imageHeight">?</span>
+								<div id="sizeWarning">!<span id="warningTooltip">Warningwarningwarning</span></div>
+							</td>
+						</tr>
+					</table>
+					<div class="vr"></div>
+					<table>
+						<tr>
+							<td><label for="oversampling">Anti-aliasing</label></td>
+							<td><input type="number" id="oversampling" value="1" step="1" min="1"></td>
+						</tr>
+						<tr rowspan="2" class="colspan">
+							<td colspan="2">
+								This will result in <span id="samplesPerPixel">1</span> samples<br>
+								per output pixel.
+							</td>
+						</tr>
+					</table>
+				</div>
+				
+				<div id="codeContainer">
+					<div id="codeHeader">
+						<h2>Javascript Code</h2>
+						<div id="exampleLoader">
+							<label for="examples">Load example: </label>
+							<select id="examples">
+								<option value="sphere">Sphere</option>
+								<option value="hollowSphere">Sphere (hollow)</option>
+								<option value="fuzzySphere">Sphere (fuzzy)</option>
+								<option value="cube">Cube</option>
+								<option value="hollowCube">Cube (hollow)</option>
+							</select>
+						</div>
+					</div>
+					<code>f(x, y, z){</code>
+					<code class="code-indented">var out = 0;</code>
+					<textarea id="codeInput">
+/*
+    The parameters x, y and z are floating point numbers between -1 and 1.
+    Use the variable out to set the result as a float between 0 and 1.
+*/
+
+var radius = 0.8;
+
+if(Math.sqrt(x*x + y*y + z*z) &lt;= radius){
+    out = 1;
+}</textarea>
+					<code class="code-indented">return out;</code>
+					<code>}</code>
+				</div>
+				
+				<div id="afterCode">
+					<button id="run">
+						<span>Generate Image</span>
+					</button>
+				</div>
+			</div>
+			<div id="side">
+				<div id="sliceContainer">
+					<canvas width="256" height="256" id="previewCanvas"></canvas>
+				</div>
+				<div id="zSlider">
+					<input type="range" min="0" max="256" value="128" id="previewSliceSlider" disabled>
+					<span>z=<span id="sliceNumber">128</span></span>
+				</div>
+				<button id="openImageButton" disabled>Open Full Image</button>
+			</div>
+		</div>
+
+		<div id="imageOverlay">
+			<div id="overlayHeader"><button id="closeOverlayButton">Close</button></div>
+			<div id="overlayContent">
+				<canvas id="imageCanvas"></canvas>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="./examples.js"></script>
+		<script type="text/javascript" src="./volumeGenerator.js"></script>
+	</body>
+</html>
