@@ -70,9 +70,9 @@ function initControls(){
 	function updateTransformation(){
 		var rotationMatrix;
 
-		//if(autorotate){
-			//angleX = ((Date.now()-startTime)/1000)*(2*Math.PI*turnsPerSecond);
-		//}
+		if(autorotate){
+			angleX = ((Date.now()-startTime)/1000)*(2*Math.PI*turnsPerSecond);
+		}
 		
 		angleX -= panX*0.0025;
 		panX = 0;
@@ -80,10 +80,10 @@ function initControls(){
 		var s = Math.sin(angleX);
 		
 		rotationMatrix = [
-			c, 0, s, 0,
-			0, 1, 0, 0,
-			-s, 0, c, 0,
-			0,  0, 0, 1
+			1, 0,  0, 0,
+			0, 1,  0, 0,
+			0, 0,  1, 0,
+			0, 0,  0, 1,
 		];
 
 		angleY -= panY*0.0025;
@@ -93,12 +93,14 @@ function initControls(){
 		
 		var yRotationMatrix = [
 			1, 0,  0, 0,
-			0, c, -s, 0,
-			0, s,  c, 0,
+			0, 1,  0, 0,
+			0, 0,  1, 0,
 			0, 0,  0, 1,
 		];
 
 		rotationMatrix = matrix4Multiply(yRotationMatrix, rotationMatrix);
+		//mat4.rotate(rotationMatrix, degToRad(180), [0, 0, 1]);
+		//rotationMatrix.rotate(rotationMatrix, degToRad(180), [0, 0, 1]);
 
 		
 		var translationMatrix = makeTranslationMatrix([-translateX, translateY, translateZ]);
@@ -180,11 +182,20 @@ function initControls(){
 	
 
 	initVolumeSelect();
+	//initVolumeSelect1();
 	initShaderSelect();
 	initShaderControls();
 	initColorRangeControls();
 	initOpacityControls();
 	initColorSelect();
+	
+	initVolumeSelect1();
+	initShaderSelect();
+	initShaderControls();
+	initColorRangeControls();
+	initOpacityControls();
+	initColorSelect();
+	
 
 	function initVolumeSelect(){
 		var volumeSelect = document.getElementById("volumeSelect");
@@ -200,6 +211,23 @@ function initControls(){
 		volumeSelect.addEventListener("change", function(e){
 			var selectedValue = this.options[this.options.selectedIndex].value;
 			renderer.changeVolume(volumes[selectedValue]);
+		});
+	}
+	
+	function initVolumeSelect1(){
+		var volumeSelect1 = document.getElementById("volumeSelect1");
+
+		for(var i in volumes){
+			var option = document.createElement("option");
+			option.value = i;
+			option.innerHTML = volumes[i].name;
+			volumeSelect1.appendChild(option);
+		}
+
+		
+		volumeSelect1.addEventListener("change", function(e){
+			var selectedValue1 = this.options[this.options.selectedIndex].value;
+			renderer.changeVolume(volumes[selectedValue1]);
 		});
 	}
 	

@@ -17,11 +17,11 @@ var volumes = {
 		,zScale: 0.65
 	}
 	,lung: {   //lung
-		 src: "./images/lung.png"
+		 src: "./images/final.png"
 		,name: "lung - original"
-		,columns: 1
-		,slices: 45
-		,zScale: 0.65
+		,columns: 2  //1
+		,slices: 87  //45
+		,zScale: 0.7
 	}
 	
 	,handgelenk: {
@@ -158,6 +158,7 @@ var Renderer = function(){
 	var colorTransfer = new Uint8Array(3*256);
 
 	initGl();
+	initGl_1();
 
 	changeColorTexture("./colorMappings/colors1.png");
 	updateOpacity();
@@ -516,6 +517,13 @@ var Renderer = function(){
 	}
 
 	function initGl(){
+		
+		createTextures();
+		compileShaders();
+		
+	}
+	
+	function initGl_1(){
 		
 		createTextures();
 		compileShaders();
