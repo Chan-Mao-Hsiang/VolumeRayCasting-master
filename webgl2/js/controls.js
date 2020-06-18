@@ -14,6 +14,7 @@ var colorRangeMax = 0.9;
 
 var autorotate = true;
 
+
 var transform = [
 	1, 0, 0, 0,
 	0, 1, 0, 0,
@@ -64,9 +65,34 @@ function initControls(){
 	var lastY = 0;
 	var panX = 0;
 	var panY = 0;
+	
+	
+	var teapotAngle = 180;
+	var lastTime    = 0;
+	function animate() {
+        var timeNow = new Date().getTime();
+        if (lastTime != 0) {
+            var elapsed = timeNow - lastTime;
+            teapotAngle += 0.03 * elapsed;
+        }
+        
+        lastTime = timeNow;
+    }
 
-	updateTransformation();
-
+	function tick() {
+        requestAnimationFrame(tick);//requestAnimFrame(tick);
+		updateTransformation();
+        renderer.draw();
+        animate();
+    }
+	
+	//updateTransformation();
+	function degToRad(degrees) {
+        return degrees * Math.PI / 180;
+    }
+	
+	
+	
 	function updateTransformation(){
 		var rotationMatrix;
 
@@ -93,14 +119,14 @@ function initControls(){
 		
 		var yRotationMatrix = [
 			1, 0,  0, 0,
+			0, 0,  -1, 0,
 			0, 1,  0, 0,
-			0, 0,  1, 0,
 			0, 0,  0, 1,
 		];
 
 		rotationMatrix = matrix4Multiply(yRotationMatrix, rotationMatrix);
 		//mat4.rotate(rotationMatrix, degToRad(180), [0, 0, 1]);
-		//rotationMatrix.rotate(rotationMatrix, degToRad(180), [0, 0, 1]);
+		mat4.rotate(rotationMatrix, degToRad(teapotAngle), [0, 1, 0]);
 
 		
 		var translationMatrix = makeTranslationMatrix([-translateX, translateY, translateZ]);
@@ -188,14 +214,14 @@ function initControls(){
 	initColorRangeControls();
 	initOpacityControls();
 	initColorSelect();
-	
+	tick();/*
 	initVolumeSelect1();
 	initShaderSelect();
 	initShaderControls();
 	initColorRangeControls();
 	initOpacityControls();
 	initColorSelect();
-	
+	tick();*/
 
 	function initVolumeSelect(){
 		var volumeSelect = document.getElementById("volumeSelect");
@@ -214,7 +240,7 @@ function initControls(){
 		});
 	}
 	
-	function initVolumeSelect1(){
+	/*function initVolumeSelect1(){
 		var volumeSelect1 = document.getElementById("volumeSelect1");
 
 		for(var i in volumes){
@@ -229,7 +255,7 @@ function initControls(){
 			var selectedValue1 = this.options[this.options.selectedIndex].value;
 			renderer.changeVolume(volumes[selectedValue1]);
 		});
-	}
+	}*/
 	
 	function initShaderSelect(){
 		var shaderSelect = document.getElementById("shaderSelect");

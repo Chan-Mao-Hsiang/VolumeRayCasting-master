@@ -17,13 +17,19 @@ var volumes = {
 		,zScale: 0.65
 	}
 	,lung: {   //lung
-		 src: "./images/final.png"
+		 src: "./images/final2.png"
 		,name: "lung - original"
-		,columns: 2  //1
-		,slices: 87  //45
+		,columns: 1  //1
+		,slices: 94  //45
 		,zScale: 0.7
 	}
-	
+	,lession: {   //lession
+		 src: "./images/lession.png"
+		,name: "lung - lession"
+		,columns: 1  //1
+		,slices: 94  //45
+		,zScale: 0.7
+	}
 	,handgelenk: {
 		 src: "./images/handgelenk.jpg"
 		,name: "Wrist"
@@ -158,7 +164,7 @@ var Renderer = function(){
 	var colorTransfer = new Uint8Array(3*256);
 
 	initGl();
-	initGl_1();
+	//initGl_1();
 
 	changeColorTexture("./colorMappings/colors1.png");
 	updateOpacity();
@@ -523,12 +529,12 @@ var Renderer = function(){
 		
 	}
 	
-	function initGl_1(){
+	/*function initGl_1(){
 		
 		createTextures();
 		compileShaders();
 		
-	}
+	}*/
 
 	function changeVolume(volume){
 
