@@ -483,16 +483,18 @@ $(function(){
     moveStartY = e.screenY;
   });
 
-  $("div#container").mousewheel((e) => {
+  $("#container").mousewheel((e) => {
     zoom += zoom * 0.001 * e.originalEvent.deltaY;
     updateTransformation();
     return false;
   });
 
   $("#sampleCount").change((e) => {
-    renderer.changeSampleCount(this.value);
+    renderer.changeSampleCount($('#sampleCount').val());
     renderer.draw();
   });
 
+  $(".dropdown-trigger").dropdown();
+  $('select').formSelect();
   //   tick();
 });
