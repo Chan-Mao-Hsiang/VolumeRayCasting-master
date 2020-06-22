@@ -2,83 +2,69 @@
 
 
 var volumes = {
-	 sagittal: {
-		 src: "./images/sagittal.png"
-		,name: "Brain - Water"
-		,columns: 2
-		,slices: 176
-		,zScale: 0.7
-	}
-	,vessels: {
-		 src: "./images/vessels.png"
-		,name: "Brain - Vessels"
-		,columns: 1
-		,slices: 160
-		,zScale: 0.65
-	}
-	,lung: {   //lung
+	lung: {   //lung
 		 src: "./images/final2.png"
 		,name: "lung - original"
 		,columns: 1  //1
 		,slices: 94  //45
 		,zScale: 0.7
 	}
-	,lession: {   //lession
-		 src: "./images/lession.png"
-		,name: "lung - lession"
+	,lession: {   //lesion
+		 src: "./images/lesion.png"
+		,name: "lung - lesion"
 		,columns: 1  //1
 		,slices: 94  //45
 		,zScale: 0.7
 	}
-	,handgelenk: {
-		 src: "./images/handgelenk.jpg"
-		,name: "Wrist"
-		,columns: 4
-		,slices: 316
-		,zScale: 1.5
-	}
-	,handgelenk2: {
-		 src: "./images/handgelenk2.jpg"
-		,name: "Wrist 2"
-		,columns: 2
-		,slices: 160
-		,zScale: 0.5
-	}
-	,broccoli: {
-		 src: "./images/broccoli.png"
-		,name: "Broccoli"
-		,columns: 1
-		,slices: 50
+	,combine: {   //combine
+		 src: "./images/final1.png"
+		,name: "lung - combine"
+		,columns: 1  //1
+		,slices: 94  //45
 		,zScale: 0.7
 	}
-	,sphereAntialiased: {
-		 src: "./images/sphere_antialiased.png"
-		,name: "Sphere (Anti-aliased)"
-		,columns: 16
-		,slices: 256
-		,zScale: 1
-	}
-	,cube: {
-		 src: "./images/cuuube.png"
-		,name: "Cube"
-		,columns: 16
-		,slices: 128
-		,zScale: 1
-	}
-	,smallSphere: {
-		 src: "./images/smallsphere.png"
-		,name: "Small Sphere"
-		,columns: 16
-		,slices: 128
-		,zScale: 1
-	}
-	/*,pouet: {
-		 src: "./images/pouet.png"
-		,name: "Pouët"
-		,columns: 2
-		,slices: 176
+	,lung_2: {   //lung_2
+		 src: "./images/lung2.png"
+		,name: "lung2 - original"
+		,columns: 1  //1
+		,slices: 93  //45
 		,zScale: 0.7
-	}*/
+	}
+	,lession_2: {   //lesion_2
+		 src: "./images/lesion2.png"
+		,name: "lung2 - lesion"
+		,columns: 1  //1
+		,slices: 93  //45
+		,zScale: 0.7
+	}
+	,combine_2: {   //combine_2
+		 src: "./images/combine2.png"
+		,name: "lung2 - combine"
+		,columns: 1  //1
+		,slices: 93  //45
+		,zScale: 0.7
+	}
+	,lung_3: {   //lung_3
+		 src: "./images/lung3.png"
+		,name: "lung3 - original"
+		,columns: 1  //1
+		,slices: 66  //45
+		,zScale: 0.7
+	}
+	,lession_3: {   //lesion_3
+		 src: "./images/lesion3.png"
+		,name: "lung3 - lesion"
+		,columns: 1  //1
+		,slices: 66  //45
+		,zScale: 0.7
+	}
+	,combine_3: {   //combine_3
+		 src: "./images/combine3.png"
+		,name: "lung3 - combine"
+		,columns: 1  //1
+		,slices: 66  //45
+		,zScale: 0.7
+	}
 };
 
 var shaders = {
@@ -168,7 +154,7 @@ var Renderer = function(){
 
 	changeColorTexture("./colorMappings/colors1.png");
 	updateOpacity();
-	changeVolume(volumes.sagittal);
+	changeVolume(volumes.lung);
 	loadSkybox();
 	changeShader(shaders.specular);
 
@@ -217,9 +203,7 @@ var Renderer = function(){
 			}
 			
 			colorI = Math.round(colorI);
-			
-			console.log(i, colorI);
-			
+						
 			var r = colorTransfer[colorI*3+0]/256;
 			var g = colorTransfer[colorI*3+1]/256;
 			var b = colorTransfer[colorI*3+2]/256;
