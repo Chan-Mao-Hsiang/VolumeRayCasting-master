@@ -217,9 +217,7 @@ var Renderer = function(){
 			}
 			
 			colorI = Math.round(colorI);
-			
-			console.log(i, colorI);
-			
+						
 			var r = colorTransfer[colorI*3+0]/256;
 			var g = colorTransfer[colorI*3+1]/256;
 			var b = colorTransfer[colorI*3+2]/256;
