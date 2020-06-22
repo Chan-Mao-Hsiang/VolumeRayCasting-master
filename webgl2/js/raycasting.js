@@ -1,5 +1,6 @@
 
-
+const DEFAULT_SAMPLE_VALUE = 512;
+var gl;
 
 var volumes = {
 	lung: {   //lung
@@ -122,14 +123,14 @@ var Renderer = function(){
 	
 	/*colorMap.onload = updateLoadedImages;
 	colorMap.src = "./colorMappings/skyline.png";*/
+	const canvas = document.getElementById("canvas");
+	const container = document.getElementById("container");
+	gl = canvas.getContext("webgl2", {preserveDrawingBuffer: true});
 
-	var canvas = document.getElementById("canvas");
-	var container = document.getElementById("container");
 	canvas.width = container.clientWidth;
 	canvas.height = container.clientHeight;
 	var aspect = canvas.width / canvas.height;
 	
-	var gl = canvas.getContext("webgl2", {preserveDrawingBuffer: true});
 	var shaderProgram;
 	var size;
 
@@ -395,7 +396,7 @@ var Renderer = function(){
 		gl.uniform1f(aspectRef, aspect);
 		
 		depthSampleCountRef = gl.getUniformLocation(shaderProgram, "depthSampleCount");
-		gl.uniform1i(depthSampleCountRef, 512);
+		gl.uniform1i(depthSampleCountRef, DEFAULT_SAMPLE_VALUE);
 
 		brightnessRef = gl.getUniformLocation(shaderProgram, "brightness");
 		gl.uniform1f(brightnessRef, 1);
@@ -434,7 +435,6 @@ var Renderer = function(){
 	}
 	
 	function createTextures(){
-	
 		volumeTexture = gl.createTexture();
 		//gl.activeTexture(gl.TEXTURE0);
 		gl.bindTexture(gl.TEXTURE_3D, volumeTexture);
