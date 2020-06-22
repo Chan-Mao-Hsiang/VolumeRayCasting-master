@@ -431,7 +431,11 @@ function initColorSelect() {
   });
 }
 
-$(function(){
+$(()=>{
+  $("#sampleCount").val(DEFAULT_SAMPLE_VALUE);
+});
+
+$(window).on("load", function(){
   renderer = new Renderer();
   initControls();
   initVolumeSelect();
@@ -491,7 +495,6 @@ $(function(){
     updateTransformation();
     return false;
   });
-
   $("#sampleCount").change((e) => {
     renderer.changeSampleCount($('#sampleCount').val());
     renderer.draw();
