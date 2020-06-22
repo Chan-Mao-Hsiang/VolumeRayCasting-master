@@ -2,7 +2,14 @@
 
 
 var volumes = {
-	lung: {   //lung
+	none: {   //none
+		 src: "./images/none.png"
+		,name: "<--none-->"
+		,columns: 1  //1
+		,slices: 88  //45
+		,zScale: 0.7
+	}
+	,lung: {   //lung
 		 src: "./images/final2.png"
 		,name: "lung - original"
 		,columns: 1  //1
@@ -154,7 +161,7 @@ var Renderer = function(){
 
 	changeColorTexture("./colorMappings/colors1.png");
 	updateOpacity();
-	changeVolume(volumes.lung);
+	changeVolume(volumes.none);
 	loadSkybox();
 	changeShader(shaders.specular);
 
