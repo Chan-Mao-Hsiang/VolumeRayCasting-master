@@ -160,11 +160,7 @@ hr {
   transition-duration: 250ms;
   transition-timing-function: linear;
 }
-<<<<<<< HEAD
 /*
-=======
-/* 
->>>>>>> 6114d4a24c5e4a408c72043eeca57741a2c6c506
 #controls{
 	background-color: #333333;
 	width: 300px;
@@ -172,7 +168,6 @@ hr {
 	display: flex;
 	flex-direction: column;
 	overflow-y: auto;
-<<<<<<< HEAD
 }  */
 
 #controls{
@@ -180,10 +175,6 @@ hr {
 	padding: 15px;
 } 
 
-=======
-} */
-
->>>>>>> 6114d4a24c5e4a408c72043eeca57741a2c6c506
 /* div.setting{
 	border-top: 1px #555555 solid;
 	border-bottom: 1px #111111 solid;
@@ -393,7 +384,6 @@ input[type="number"]::-webkit-inner-spin-button {
 #colorSelect > li[value="natural"] {
   background-image: url(../colorMappings/natural.png);
 }
-<<<<<<< HEAD
 
 #colorSelect > li[value="red"]{
 	background-image: url(../colorMappings/red.png);
@@ -402,5 +392,3 @@ input[type="number"]::-webkit-inner-spin-button {
 #colorSelect > li[value="brown"]{
 	background-image: url(../colorMappings/brown.png);
 }
-=======
->>>>>>> 6114d4a24c5e4a408c72043eeca57741a2c6c506

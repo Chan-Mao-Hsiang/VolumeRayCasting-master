@@ -40,11 +40,8 @@ var panY = 0;
 var teapotAngle = 180;
 var lastTime = 0;
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 6114d4a24c5e4a408c72043eeca57741a2c6c506
 function initControls() {
   controlsContainer = document.getElementById("controls");
   startTime = Date.now();
@@ -112,7 +109,6 @@ function updateTransformation() {
 
   renderer.draw();
 }
-<<<<<<< HEAD
 
 function initVolumeSelect() {
   let volumeSelect = document.getElementById("volumeSelect");
@@ -146,41 +142,6 @@ function initShaderSelect() {
   });
 }
 
-=======
-
-function initVolumeSelect() {
-  let volumeSelect = document.getElementById("volumeSelect");
-
-  for (let key in volumes) {
-    let option = document.createElement("option");
-    option.value = key;
-    option.innerHTML = volumes[key].name;
-    volumeSelect.appendChild(option);
-  }
-
-  volumeSelect.addEventListener("change", function (e) {
-    let selectedValue = this.options[this.options.selectedIndex].value;
-    renderer.changeVolume(volumes[selectedValue]);
-  });
-}
-
-function initShaderSelect() {
-  var shaderSelect = document.getElementById("shaderSelect");
-
-  for (var i in shaders) {
-    var option = document.createElement("option");
-    option.value = i;
-    option.innerHTML = shaders[i].name;
-    shaderSelect.appendChild(option);
-  }
-
-  shaderSelect.addEventListener("change", function (e) {
-    var selectedValue = this.options[this.options.selectedIndex].value;
-    renderer.changeShader(shaders[selectedValue]);
-  });
-}
-
->>>>>>> 6114d4a24c5e4a408c72043eeca57741a2c6c506
 function initShaderControls() {
   var brightnessSlider = document.getElementById("brightness");
   var brightnessOutput = document.getElementById("brightnessOutput");
@@ -240,7 +201,6 @@ function initColorRangeControls() {
 function initOpacityControls() {
   var opCanvas = document.getElementById("opacityControls");
   var opContext = opCanvas.getContext("2d");
-<<<<<<< HEAD
 
   var height = 70;
   var padding = 10;
@@ -313,207 +273,6 @@ function initOpacityControls() {
     }
 
     opContext.beginPath();
-    opContext.arc(lowNodeX, minLevelY, 5, 0, 2 * Math.PI);
-    opContext.fill();
-
-    if ((hovering && nodeHovered == 1) || (dragging && nodeDragged == 1)) {
-=======
-
-  var height = 70;
-  var padding = 10;
-  opCanvas.width = controlsContainer.clientWidth - 2 * padding - 2; // 2 for border, i guess
-  opCanvas.height = height + padding * 2;
-
-  var width = opCanvas.width - 2 * padding;
-
-  var lowNodeX = ~~(width * lowNode) + padding;
-  var highNodeX = ~~(width * highNode) + padding;
-  var minLevelY = ~~(height - minLevel * height) + padding;
-  var maxLevelY = ~~(height - maxLevel * height) + padding;
-
-  window.addEventListener("resize", function () {
-    opCanvas.width = controlsContainer.clientWidth - 2 * padding - 2; // 2 for border, i guess
-    opCanvas.height = height + padding * 2;
-
-    width = opCanvas.width - 2 * padding;
-
-    lowNodeX = ~~(width * lowNode) + padding;
-    highNodeX = ~~(width * highNode) + padding;
-    minLevelY = ~~(height - minLevel * height) + padding;
-    maxLevelY = ~~(height - maxLevel * height) + padding;
-
-    render();
-  });
-
-  render();
-
-  function render() {
-    renderer.updateOpacity();
-
-    lowNodeX = ~~(width * lowNode) + padding;
-    highNodeX = ~~(width * highNode) + padding;
-    minLevelY = ~~(height - minLevel * height) + padding;
-    maxLevelY = ~~(height - maxLevel * height) + padding;
-
-    opContext.clearRect(0, 0, opCanvas.width, opCanvas.height);
-
-    // draw guide lines
-    var linesCount = 10;
-
-    opContext.strokeStyle = "rgba(255, 255, 255, 0.2)";
-    opContext.lineWidth = 0.5;
-    opContext.beginPath();
-
-    for (var i = 0; i < linesCount; i++) {
-      var y = 1 - Math.pow(i / (linesCount - 1), 2);
-      var y = padding + height * y;
-      y = ~~y + 0.5;
-      opContext.moveTo(padding, y);
-      opContext.lineTo(width + padding, y);
-    }
-
-    opContext.stroke();
-
-    opContext.strokeStyle = "#AAAAAA";
-    opContext.lineWidth = 2;
-    opContext.beginPath();
-    opContext.moveTo(padding, minLevelY);
-    opContext.lineTo(lowNodeX, minLevelY);
-    opContext.lineTo(highNodeX, maxLevelY);
-    opContext.lineTo(width + padding, maxLevelY);
-    opContext.stroke();
-
-    if ((hovering && nodeHovered == 0) || (dragging && nodeDragged == 0)) {
->>>>>>> 6114d4a24c5e4a408c72043eeca57741a2c6c506
-      opContext.fillStyle = "#FFFF55";
-    } else {
-      opContext.fillStyle = "#FFAA00";
-    }
-
-    opContext.beginPath();
-<<<<<<< HEAD
-    opContext.arc(highNodeX, maxLevelY, 5, 0, 2 * Math.PI);
-    opContext.fill();
-  }
-
-  var dragging = false;
-  var hovering = false;
-  var nodeDragged = 0;
-  var nodeHovered = 0;
-  var dragStart = [0, 0];
-  var startPos = [0, 0];
-
-  // distance where clicks and hovering near control nodes are registered
-  var hoverRadius = 15;
-
-  opCanvas.addEventListener("mousedown", function (e) {
-    //console.log(e);
-    if (
-      Math.sqrt(
-        Math.pow(e.offsetX - lowNodeX, 2) + Math.pow(e.offsetY - minLevelY, 2)
-      ) <= hoverRadius
-    ) {
-      dragging = true;
-      nodeDragged = 0;
-      dragStart = [e.screenX, e.screenY];
-      startPos = [lowNodeX, minLevelY];
-    } else if (
-      Math.sqrt(
-        Math.pow(e.offsetX - highNodeX, 2) + Math.pow(e.offsetY - maxLevelY, 2)
-      ) <= hoverRadius
-    ) {
-      dragging = true;
-      nodeDragged = 1;
-      dragStart = [e.screenX, e.screenY];
-      startPos = [highNodeX, maxLevelY];
-    }
-  });
-
-  // figure out if cursor is near opacity control node, for highlighting
-  opCanvas.addEventListener("mousemove", function (e) {
-    if (
-      Math.sqrt(
-        Math.pow(e.offsetX - lowNodeX, 2) + Math.pow(e.offsetY - minLevelY, 2)
-      ) <= hoverRadius
-    ) {
-      if (!hovering) {
-        opCanvas.className = "pointer";
-        nodeHovered = 0;
-        hovering = true;
-        render();
-      }
-    } else if (
-      Math.sqrt(
-        Math.pow(e.offsetX - highNodeX, 2) + Math.pow(e.offsetY - maxLevelY, 2)
-      ) <= hoverRadius
-    ) {
-      if (!hovering) {
-        opCanvas.className = "pointer";
-        nodeHovered = 1;
-        hovering = true;
-        render();
-      }
-    } else {
-      if (hovering) {
-        opCanvas.className = "";
-        hovering = false;
-        render();
-      }
-    }
-  });
-
-  document.addEventListener("mousemove", function (e) {
-    if (dragging) {
-      e.preventDefault();
-      var diffX = dragStart[0] - e.screenX;
-      var diffY = dragStart[1] - e.screenY;
-
-      if (nodeDragged == 0) {
-        lowNodeX = Math.max(
-          padding,
-          Math.min(width + padding, startPos[0] - diffX)
-        );
-        minLevelY = Math.max(
-          padding,
-          Math.min(height + padding, startPos[1] - diffY)
-        );
-
-        lowNode = (lowNodeX - padding) / width;
-        lowNode = Math.min(lowNode, highNode);
-        minLevel = 1 - (minLevelY - padding) / height;
-      } else {
-        highNodeX = Math.max(
-          padding,
-          Math.min(width + padding, startPos[0] - diffX)
-        );
-        maxLevelY = Math.max(
-          padding,
-          Math.min(height + padding, startPos[1] - diffY)
-        );
-
-        highNode = (highNodeX - padding) / width;
-        highNode = Math.max(highNode, lowNode);
-        maxLevel = 1 - (maxLevelY - padding) / height;
-      }
-
-      render();
-    }
-
-    // turn off hovering if cursor left opacity canvas
-    if (hovering && e.target != opCanvas) {
-      opCanvas.className = "";
-      hovering = false;
-      render();
-    }
-  });
-
-  document.addEventListener("mouseup", function (e) {
-    dragging = false;
-    render();
-  });
-}
-
-=======
     opContext.arc(lowNodeX, minLevelY, 5, 0, 2 * Math.PI);
     opContext.fill();
 
@@ -645,7 +404,6 @@ function initOpacityControls() {
   });
 }
 
->>>>>>> 6114d4a24c5e4a408c72043eeca57741a2c6c506
 function initColorSelect() {
   var opened = false;
   var selectContainer = document.getElementById("colorSelect");
@@ -682,10 +440,7 @@ $(function(){
   initColorRangeControls();
   initOpacityControls();
   initColorSelect();
-<<<<<<< HEAD
   tick();
-=======
->>>>>>> 6114d4a24c5e4a408c72043eeca57741a2c6c506
 
   $(document).mousemove((e) => {
     if (panning || moving) {
